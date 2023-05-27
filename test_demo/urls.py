@@ -25,5 +25,6 @@ urlpatterns = [
 
     path('', views.index),
     path('home/', views.home_index),
-    path('home/templates', views.home_templates)
+    path('home/templates', views.home_templates),
+    path('grammar/summary', views.grammar_summary)
 ]

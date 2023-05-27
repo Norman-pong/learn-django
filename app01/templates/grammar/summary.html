@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模板语法上手</title>
+  <!-- <link href="{% static 'layui/css/layui.css' %}" rel="stylesheet"> -->
+</head>
+
+<body>
+  <details>
+    <summary>注意</summary>
+    <ol>
+      <li>请查看路由配置：urls.py</li>
+      <li>请查看views配置：views.py</li>
+    </ol>
+  </details>
+
+  <h1>Django 模板语法上手</h1>
+  <div>
+    <h2>单个字段获取</h2>
+    <span>name:{{ name }}</span>
+  </div>
+
+  <h2>数组获取</h2>
+  <ul>
+    {% for item in arr %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>object 获取</h2>
+  <ul>
+    {% for key,value in obj.items %}
+    <li>{{ key }}={{ value }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>数组字典(内嵌条件语法)</h2>
+  <ul>
+    {% for item in arr_obj %}
+    {% if item.age == 19 %}
+    <li>{{ item }}</li>
+    {% elif item.info.parent_age == 49 %}
+    <li>{{ item.info }}</li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  <h2>第三方接口数据</h2>
+  <ul>
+    <li>{{ vender_data_list }}</li>
+  </ul>
+
+  <!-- <script src="{% static 'layui/layui.js' %}"></script> -->
+</body>
+
+</html>
