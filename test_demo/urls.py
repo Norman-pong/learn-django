@@ -26,5 +26,8 @@ urlpatterns = [
     path('', views.index),
     path('home/', views.home_index),
     path('home/templates', views.home_templates),
-    path('grammar/summary', views.grammar_summary)
+    path('grammar/summary', views.grammar_summary),
+
+    # 登录案例
+    path('user/login', views.user_login)
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
 
@@ -32,9 +32,8 @@ def grammar_summary(request):
 
     res = requests.get(
         'https://jsonplaceholder.typicode.com/todos/2')
-    print('---------')
-    vender_data_list = res.json()
-    print(vender_data_list)
+    
+    vendor_data_list = res.json()
 
     return render(request,
                   'grammar/summary.html',
@@ -42,5 +41,17 @@ def grammar_summary(request):
                    'arr': arr,
                    'obj': obj,
                    'arr_obj': arr_obj,
-                   'vender_data_list': vender_data_list
+                   'vender_data_list': vendor_data_list
                    })
+
+
+def user_login(request):
+    if request.method == 'GET':
+        return render(request, "user/login.html")
+    post_data = request.POST
+    username = post_data.get('username')
+    password = post_data.get('password')
+    if username == 'admin':
+        return redirect('/grammar/summary')
+
+    return render(request, "user/login.html", {"errMsg": "密码错误"})
