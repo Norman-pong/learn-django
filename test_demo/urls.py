@@ -19,6 +19,7 @@ from django.urls import path
 
 
 from app01 import views
+from app02 import views as dept_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,9 +29,14 @@ urlpatterns = [
     path('home/templates', views.home_templates),
     path('grammar/summary', views.grammar_summary),
 
+    #api
+    path('api/dept', dept_views.dept),
+
     # 登录案例
     path('user/add', views.user_add),
     path('user/list', views.user_list),
     path('user/login', views.user_login),
-    path('user/delete', views.user_delete)
+    path('user/delete', views.user_delete),
+
+    path('dept/list', dept_views.dept_index)
 ]

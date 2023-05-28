@@ -60,7 +60,6 @@ def user_login(request):
 
 def user_list(request):
     data_list = UserList.objects.all()
-    print(data_list)
     return render(request, "user/list.html", {'data_list': data_list})
 
 
