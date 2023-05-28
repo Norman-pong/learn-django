@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
+from app01.models import UserList
 
 # Create your views here.
 
@@ -55,3 +56,33 @@ def user_login(request):
         return redirect('/grammar/summary')
 
     return render(request, "user/login.html", {"errMsg": "密码错误"})
+
+
+def user_list(request):
+    data_list = UserList.objects.all()
+    print(data_list)
+    return render(request, "user/list.html", {'data_list': data_list})
+
+
+def user_add(request):
+    if request.method == 'GET':
+        return render(request, "user/add.html")
+
+    post_data = request.POST
+    username = post_data.get('username')
+    password = post_data.get('password')
+    remark = post_data.get('remark')
+    age = post_data.get('age') or 0
+    UserList.objects.create(
+        username=username, password=password, age=age, remark=remark)
+    return redirect('/user/list')
+
+
+def user_delete(request):
+    id = request.GET.get('id')
+    print(id)
+    if id:
+        UserList.objects.filter(id=id).delete()
+        return redirect('/user/list')
+
+    return HttpResponse('id 不能为空')

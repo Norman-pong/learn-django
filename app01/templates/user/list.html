@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link href="{% static 'layui/css/layui.css' %}" rel="stylesheet">
+</head>
+<body class="layui-container" style="padding: 16px;">
+    <div class="layui-col-space16">
+    <h1>用户列表</h1>
+        <a href="/user/add">
+        <button type="button" class="layui-btn" >
+          添加用户
+        </button>
+        </a>
+        <a href="/grammar/summary">
+        <button type="button" class="layui-btn layui-bg-blue" >
+            查看模板语法
+        </button>
+        </a>
+
+    <table class="layui-table" style="text-align: center;">
+        <colgroup>
+            <col width="80">
+            <col width="120">
+            <col width="200">
+            <col width="120">
+            <col width="320">
+            <col width="80">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户</th>
+                <th>密码</th>
+                <th>年龄</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data_list %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{ item.username }}</td>
+                <td>{{ item.password }}</td>
+                <td>{{item.age}}岁</td>
+                <td>{{ item.remark }}</td>
+                <td>
+                    <a style="color:#ff5722" href="/user/delete?id={{ item.id }}">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    </div>
+<script src="{% static 'layui/layui.js' %}"></script>
+</body>
+</html>
