@@ -33,7 +33,7 @@ def grammar_summary(request):
 
     res = requests.get(
         'https://jsonplaceholder.typicode.com/todos/2')
-    
+
     vendor_data_list = res.json()
 
     return render(request,
@@ -80,7 +80,6 @@ def user_add(request):
 
 def user_delete(request):
     id = request.GET.get('id')
-    print(id)
     if id:
         UserList.objects.filter(id=id).delete()
         return redirect('/user/list')
