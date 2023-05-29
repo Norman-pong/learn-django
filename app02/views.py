@@ -12,14 +12,11 @@ def dept_index(request):
   return render(request, 'list.html', {"dept_list":dept_list})
 
 def dept(request):
-    if request.method == 'POST':
-      nid = request.POST.get('id')
-      dept_name = request.POST.get('deptName')
-      Department.objects.create(title=dept_name)
+    nid = request.params.get('id')
+    dept_name = request.params.get('deptName')
 
-    put = MultiPartParser(request.META, request, request.upload_handlers).parse()
-    nid = put[0].get('id')
-    dept_name = put[0].get('deptName')
+    if request.method == 'POST':
+      Department.objects.create(title=dept_name)
 
     if request.method == 'PUT':
       Department.objects.filter(id=nid).update(title=dept_name)
@@ -29,3 +26,4 @@ def dept(request):
 
     res_data = {"code":200, "data": dept_name, "msg": "请求成功"}
     return JsonResponse(res_data)
+
