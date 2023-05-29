@@ -1,54 +1,50 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <div style="padding: 15px;">
-    <div class="layui-card layui-panel">
-      <div class="layui-card-header">
-        <h2>用户列表</h2>
-      </div>
-      <div class="layui-card-body">
-        <button type="button"
-                class="layui-btn layui-bg-primary"
-                lay-on="promptForDept">添加部门</button>
-        <button type="button" class="layui-btn layui-bg-primary">待定</button>
-        <table class="layui-table" style="text-align: center;">
-          <colgroup>
-            <col width="80">
-            <col width="120">
-            <col width="200">
-            <col width="120">
-          </colgroup>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>部门名字</th>
-              <th>创建时间</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in dept_list %}
-              <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.ct }}</td>
-                <td>
-                  <button type="button"
-                          class="layui-btn layui-bg-blue"
-                          lay-on="updateDept"
-                          data-title="{{ item.title }}"
-                          data-id="{{ item.id }}">修改</button>
-                  <button type="button"
-                          class="layui-btn layui-bg-red"
-                          lay-on="deleteDept"
-                          data-title="{{ item.title }}"
-                          data-id="{{ item.id }}">删除</button>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class="layui-card-header">
+    <h2>用户列表</h2>
+  </div>
+  <div class="layui-card-body">
+    <button type="button"
+            class="layui-btn layui-bg-primary"
+            lay-on="promptForDept">添加部门</button>
+    <button type="button" class="layui-btn layui-bg-primary">待定</button>
+    <table class="layui-table" style="text-align: center;">
+      <colgroup>
+        <col width="80">
+        <col width="120">
+        <col width="200">
+        <col width="120">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>部门名字</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in dept_list %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.ct }}</td>
+            <td>
+              <button type="button"
+                      class="layui-btn layui-bg-blue"
+                      lay-on="updateDept"
+                      data-title="{{ item.title }}"
+                      data-id="{{ item.id }}">修改</button>
+              <button type="button"
+                      class="layui-btn layui-bg-red"
+                      lay-on="deleteDept"
+                      data-title="{{ item.title }}"
+                      data-id="{{ item.id }}">删除</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 {% endblock %}

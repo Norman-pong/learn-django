@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="layui-card-header">
+    <h2>员工列表</h2>
+  </div>
+  <div class="layui-card-body">
+    <table class="layui-table" style="text-align: center;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>员工名称</th>
+          <th>员工年龄</th>
+          <th>员工性别</th>
+          <th>员工账号余额</th>
+          <th>所属部门</th>
+          <th>入职时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in employees %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.age }}</td>
+            <td>{{ item.get_gender_display }}</td>
+            <td>{{ item.account }}</td>
+            <td>{{ item.depart.title }}</td>
+            <td>{{ item.hiredate|date:'Y-m-d' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
