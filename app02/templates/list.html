@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 {% block content %}
   <div class="layui-card-header">
     <h2>用户列表</h2>
@@ -47,4 +47,7 @@
       </tbody>
     </table>
   </div>
+{% endblock %}
+{% block js %}
+  <script src="{% static 'js/department.js' %}"></script>
 {% endblock %}

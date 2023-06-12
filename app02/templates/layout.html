@@ -124,8 +124,8 @@
         使用 Django 驱动
       </div>
     </div>
-    {% block js %}{% endblock %}
+    <script src="{% static 'jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'layui-v2.7.6/layui.js' %}"></script>
-    <script src="{% static 'js/department.js' %}"></script>
+    {% block js %}{% endblock %}
   </body>
 </html>
