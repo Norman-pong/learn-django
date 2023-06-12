@@ -1,8 +1,7 @@
+import json
 from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse, QueryDict
 from app02.models import Department, Employee
-
-from django.http.multipartparser import MultiPartParser
 
 
 # Create your views here.
@@ -14,9 +13,22 @@ def dept_index(request):
 
 def employee_index(request):
     list = Employee.objects.all()
+    context = {
+        'depart_list': Department.objects.all(),
+        'gender_choices': Employee.gender_choices
+    }
     for obj in list:
-        print(obj.id, obj.name, obj.account, obj.gender, obj.depart.title, obj.get_gender_display())
-    return render(request, 'employees.html', {'employees': list})
+        print('转换数据库数据 --> ', obj.get_gender_display(), obj.hiredate.strftime('%Y-%m-%d'))
+        print('联表查询部门表 --> ', obj.depart.title)
+    return render(request, 'employees.html', {'employees': list, 'context' :context})
+
+
+def employee_add_user(request):
+    if(request.method == 'POST'):
+      data = json.loads(request.body)
+      Employee.objects.create(**data)
+    res_data = {"code": 200, "data": data, "msg": "保存成功"}
+    return JsonResponse(res_data)
 
 
 def dept(request):

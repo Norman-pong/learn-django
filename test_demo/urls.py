@@ -42,4 +42,5 @@ urlpatterns = [
     path('employee/list',app02_views.employee_index),
     #api
     path('api/dept', app02_views.dept),
+    path('api/employee/add_user', app02_views.employee_add_user),
 ]

@@ -1,9 +1,13 @@
 {% extends 'layout.html' %}
+{% load static %}
 {% block content %}
   <div class="layui-card-header">
     <h2>员工列表</h2>
   </div>
   <div class="layui-card-body">
+    <button type="button"
+            class="layui-btn layui-bg-primary"
+            lay-on="promptForEmployess">添加员工</button>
     <table class="layui-table" style="text-align: center;">
       <thead>
         <tr>
@@ -14,6 +18,7 @@
           <th>员工账号余额</th>
           <th>所属部门</th>
           <th>入职时间</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
@@ -26,9 +31,119 @@
             <td>{{ item.account }}</td>
             <td>{{ item.depart.title }}</td>
             <td>{{ item.hiredate|date:'Y-m-d' }}</td>
+            <td>
+              <button type="button"
+                      class="layui-btn layui-bg-blue"
+                      lay-on="updateDept"
+                      data-title="{{ item.title }}"
+                      data-id="{{ item.id }}">编辑</button>
+              <button type="button"
+                      class="layui-btn layui-bg-red"
+                      lay-on="deleteDept"
+                      data-title="{{ item.title }}"
+                      data-id="{{ item.id }}">删除</button>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+  {% comment %} 添加员工弹窗 {% endcomment %}
+  <div class="layui-card-body">
+    <form id="Add_mployess"
+          name='addEmployess'
+          class="layui-form layui-form-pane"
+          action=""
+          style="display: none;
+                 padding: 16px">
+      <div class="layui-form-item">
+        <label class="layui-form-label">员工名称</label>
+        <div class="layui-input-inline">
+          <input type="text"
+                 name="name"
+                 autocomplete="off"
+                 placeholder="请输入"
+                 lay-verify="required"
+                 class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-inline">
+          <input type="password"
+                 name="password"
+                 placeholder="请输入"
+                 lay-verify="required"
+                 autocomplete="off"
+                 class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-text-em">请务必填写用户名</div>
+      </div>
+      <div class="layui-form-item"></div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">入职时间</label>
+          <div class="layui-input-inline">
+            {% comment %} <div class="layui-input-prefix">
+              <i class="layui-icon layui-icon-date"></i>
+            </div> {% endcomment %}
+            <input type="text"
+                   name="hiredate"
+                   id="date"
+                   lay-verify="date"
+                   placeholder="yyyy-MM-dd"
+                   autocomplete="off"
+                   class="layui-input">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-inline">
+          <input type="number"
+                 name="age"
+                 lay-verify="required"
+                 placeholder="请输入年龄"
+                 autocomplete="off"
+                 class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">员工账号</label>
+        <div class="layui-input-inline">
+          <input type="text"
+                 name="account"
+                 lay-verify="required"
+                 placeholder="请输入账号"
+                 autocomplete="off"
+                 class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">员工性别</label>
+        <div class="layui-input-inline">
+          <select name="gender" lay-verify="required">
+            <option value=""></option>
+            {% for item in context.gender_choices %}<option value="{{ item.0 }}">{{ item.1 }}</option>{% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">所属部门</label>
+        <div class="layui-input-inline">
+          <select name="depart_id" lay-verify="required">
+            <option value=""></option>
+            {% for item in context.depart_list %}<option value="{{ item.id }}">{{ item.title }}</option>{% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <button class="layui-btn" lay-submit lay-filter="addEmployess">确认</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+{% block js %}
+  <script src="{% static 'js/employess.js' %}"></script>
 {% endblock %}
