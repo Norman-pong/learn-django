@@ -7,7 +7,7 @@
   <div class="layui-card-body">
     <button type="button"
             class="layui-btn layui-bg-primary"
-            lay-on="promptForEmployess">添加员工</button>
+            lay-on="promptForEmployees">添加员工</button>
     <button type="button" class="layui-btn layui-bg-primary">
       <a style="color:white;" href='/employee/add'>添加员工 form</a>
     </button>
@@ -37,8 +37,8 @@
             <td>
               <button type="button"
                       class="layui-btn layui-bg-blue"
-                      lay-on="updateDept"
-                      data-title="{{ item.title }}"
+                      lay-on="employeeDetail"
+                      data-name="{{ item.name }}"
                       data-id="{{ item.id }}">编辑</button>
               <button type="button"
                       class="layui-btn layui-bg-red"
@@ -53,7 +53,7 @@
   </div>
   {% comment %} 添加员工弹窗 {% endcomment %}
   <div class="layui-card-body">
-    <form id="Add_mployess"
+    <form id="Add_employees"
           name='addEmployess'
           class="layui-form layui-form-pane"
           action=""
@@ -141,7 +141,7 @@
         </div>
       </div>
       <div class="layui-form-item">
-        <button class="layui-btn" lay-submit lay-filter="addEmployess">确认</button>
+        <button class="layui-btn" lay-submit lay-filter="addEmployees">确认</button>
         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
       </div>
     </form>

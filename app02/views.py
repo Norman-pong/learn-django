@@ -65,6 +65,20 @@ def employee_add_user(request):
     return JsonResponse(res_data)
 
 
+def employee_edit_user(request, nid):
+    row_object = Employee.objects.filter(id=nid).first()
+    if request.method == 'GET':
+      form = EmployeeForm(instance=row_object)
+      return render(request,'employees_edit.html', { 'form':form})
+
+    form = EmployeeForm(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return render(request, 'employees_edit.html', { 'form': form})
+    else:
+        return render(request, 'employees_edit.html', { 'form': form})
+
+
 def dept(request):
     nid = request.params.get('id')
     dept_name = request.params.get('deptName')

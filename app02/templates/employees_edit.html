@@ -1,0 +1,25 @@
+{% load static %}
+<link href="{% static 'layui-v2.7.6/css/layui.css' %}" rel="stylesheet">
+<div class="layui-card-body">
+  <form id="Add_mployess" method="post">
+    {% csrf_token %}
+    {% for item in form %}
+      <div class="layui-form-item">
+        <label class="layui-form-label">{{ item.label }}</label>
+        <div class="layui-input-block">
+          {{ item }}
+          <div class="layui-form-mid layui-text-em layui-font-red">{{ item.errors.0 }}</div>
+        </div>
+      </div>
+    {% endfor %}
+    <div class="layui-form-item" style='text-align:center'>
+        <button class="layui-btn layui-btn-lg">保存</button>
+        <button type="reset" class="layui-btn layui-btn-primary layui-btn-lg">重置</button>
+    </div>
+  <form>
+<div>
+{% block js %}
+  <script src="{% static 'jquery-3.7.0.min.js' %}"></script>
+  <script src="{% static 'layui-v2.7.6/layui.js' %}"></script>
+  <script src="{% static 'js/employess.js' %}"></script>
+{% endblock %}

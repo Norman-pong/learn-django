@@ -37,10 +37,11 @@ urlpatterns = [
 
     # app02
     path('dept/list', app02_views.dept_index),
-    path('employee/list',app02_views.employee_index),
-    path('employee/add',app02_views.employee_add_user_form),
+    path('employee/list', app02_views.employee_index),
+    path('employee/add', app02_views.employee_add_user_form),
+    path('employee/<int:nid>/edit', app02_views.employee_edit_user),
 
-    #api
+    # api
     path('api/dept', app02_views.dept),
-    path('api/employee/add_user', app02_views.employee_add_user),
+    path('api/employee/add_user', app02_views.employee_add_user)
 ]
