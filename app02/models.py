@@ -1,9 +1,14 @@
 from django.db import models
+from datetime import date
 
 
 # Create your models here.
+import django.utils.timezone as timezone
 class Department(models.Model):
+    today = date.today()
     title = models.CharField(verbose_name='标题', max_length=20)
+    add_date = models.DateTimeField(verbose_name='创建时间', default=timezone.now, db_comment='部门创建时间')
+    mod_date = models.DateTimeField(verbose_name='创建时间', auto_now=True, db_comment='部门修改时间')
 
 
 class Employee(models.Model):
