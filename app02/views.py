@@ -1,6 +1,8 @@
 import json
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.http import JsonResponse, QueryDict
+from django.forms import ModelForm
+from django import forms
 from app02.models import Department, Employee
 
 
@@ -17,10 +19,42 @@ def employee_index(request):
         'depart_list': Department.objects.all(),
         'gender_choices': Employee.gender_choices
     }
-    for obj in list:
-        print('转换数据库数据 --> ', obj.get_gender_display(), obj.hiredate.strftime('%Y-%m-%d'))
-        print('联表查询部门表 --> ', obj.depart.title)
+    # for obj in list:
+    #     print('转换数据库数据 --> ', obj.get_gender_display(), obj.hiredate.strftime('%Y-%m-%d'))
+    #     print('联表查询部门表 --> ', obj.depart.title)
     return render(request, 'employees.html', {'employees': list, 'context' :context})
+
+
+class EmployeeForm(ModelForm):
+    # 需要独立编写校验规则
+    name = forms.CharField(min_length=2,label='员工姓名')
+    password = forms.CharField(min_length=6,label='员工密码')
+    hiredate_attrs = {'placeholder': "yyyy-MM-dd",'class': 'layui-input','lay-verify':'date','id':'date','autocomplete':'off'}
+    hiredate = forms.DateTimeField(label='入职时间',widget=forms.TextInput(attrs=hiredate_attrs))
+    class Meta:
+        model = Employee
+        fields = ['name', 'password', 'gender', 'age', 'account', 'hiredate','depart']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+          # 通过插件添加 input 属性
+          if name == 'hiredate':
+              continue
+          field.widget.attrs = {"class": 'layui-input', "lay-verify": "required", "placeholder": "请输入{}".format(field.label),'autocomplete':'off'}
+
+
+def employee_add_user_form(request):
+    if request.method == 'GET':
+      form = EmployeeForm()
+      return render(request, 'employees_add.html', { 'form': form})
+    if request.method == 'POST':
+        form = EmployeeForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            return render(request, 'employees_add.html', { 'form': form})
+    return redirect('/employee/list')
 
 
 def employee_add_user(request):

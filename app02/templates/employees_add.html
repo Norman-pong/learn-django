@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="layui-card-body">
+  <form id="Add_mployess" method="post" novalidate>
+    {% csrf_token %}
+    {% for item in form %}
+      <div class="layui-form-item">
+        <label class="layui-form-label">{{ item.label }}</label>
+        <div class="layui-input-inline">
+          {{ item }}
+        </div>
+        <div class="layui-form-mid layui-text-em layui-font-red">{{ item.errors.0 }}</div>
+      </div>
+    {% endfor %}
+    <button class="layui-btn">确认</button>
+  <form>
+<div>
+{% endblock %}
+{% block js %}
+  <script src="{% static 'js/employess.js' %}"></script>
+{% endblock %}

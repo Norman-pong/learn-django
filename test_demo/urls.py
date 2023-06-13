@@ -29,8 +29,6 @@ urlpatterns = [
     path('home/templates', views.home_templates),
     path('grammar/summary', views.grammar_summary),
 
-
-
     # 登录案例
     path('user/add', views.user_add),
     path('user/list', views.user_list),
@@ -40,6 +38,8 @@ urlpatterns = [
     # app02
     path('dept/list', app02_views.dept_index),
     path('employee/list',app02_views.employee_index),
+    path('employee/add',app02_views.employee_add_user_form),
+
     #api
     path('api/dept', app02_views.dept),
     path('api/employee/add_user', app02_views.employee_add_user),

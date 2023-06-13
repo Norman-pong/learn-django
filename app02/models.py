@@ -10,6 +10,9 @@ class Department(models.Model):
     add_date = models.DateTimeField(verbose_name='创建时间', default=timezone.now, db_comment='部门创建时间')
     mod_date = models.DateTimeField(verbose_name='创建时间', auto_now=True, db_comment='部门修改时间')
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Employee(models.Model):
     name = models.CharField(verbose_name='员工名称', max_length=20)
@@ -25,7 +28,7 @@ class Employee(models.Model):
         2. 当部门表删除数据时，员工表有所关联的数据将“联级删除”
     '''
     # depart = models.ForeignKey(to=Department, to_field=)
-    depart = models.ForeignKey(to=Department, to_field='id', on_delete=models.CASCADE)
+    depart = models.ForeignKey(verbose_name='部门' ,to=Department, to_field='id', on_delete=models.CASCADE)
     # 置空处理
     # depart = models.ForeignKey(to='Department', to_field='id', null=True, blank=True, on_delete=models.SET_NULL)
 
