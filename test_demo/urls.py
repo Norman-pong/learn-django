@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import RedirectView
 
 
 from app01 import views
@@ -24,7 +25,7 @@ from app02 import views as app02_views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.index),
+    path('', RedirectView.as_view(url='employee/list')),
     path('home/', views.home_index),
     path('home/templates', views.home_templates),
     path('grammar/summary', views.grammar_summary),
