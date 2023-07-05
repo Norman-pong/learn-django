@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+  <div class="layui-card-header">
+    <h2>靓号管理</h2>
+  </div>
+  <div class="layui-card-body">
+    <table class="layui-table" style="text-align: center;">
+      <colgroup>
+        <col width="80">
+        <col width="120">
+        <col width="200">
+        <col width="120">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>手机号码</th>
+          <th>号码等级</th>
+          <th>号码状态</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in mobile_list %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.mobile }}</td>
+            <td>{{ item.get_level_display }}</td>
+            <td>{{ item.get_status_display }}</td>
+            <td>{{ item.create_date|date:'Y-m-d h:i:s'  }}</td>
+            <td>
+              <button type="button"
+                      class="layui-btn layui-bg-blue"
+                      lay-on="updateDept"
+                      data-id="{{ item.id }}">修改</button>
+              <button type="button"
+                      class="layui-btn layui-bg-red"
+                      lay-on="deleteDept"
+                      data-id="{{ item.id }}">删除</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+{% block js %}
+  <!-- <script src="{% static 'js/department.js' %}"></script> -->
+{% endblock %}

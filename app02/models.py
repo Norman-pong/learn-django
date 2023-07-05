@@ -38,3 +38,25 @@ class Employee(models.Model):
         (2,'女')
     )
     gender = models.SmallIntegerField(verbose_name='性别', choices=gender_choices)
+
+
+class PrettyNum(models.Model):
+    mobile = models.CharField(verbose_name='手机号码', max_length=11)
+    price = models.IntegerField(verbose_name='价格', default=0)
+
+    level_choices = (
+        (1, '一级'),
+        (2, '二级'),
+        (3, '三级'),
+        (4, '四级'),
+        (5, '五级'),
+    )
+
+    level = models.SmallIntegerField(verbose_name='手机等级', choices=level_choices, default=1)
+
+    status_choices = (
+        (1, '未启用'),
+        (2, '已使用')
+    )
+    status = models.SmallIntegerField(verbose_name='手机号使用状态', choices=status_choices, default=1)
+    create_date = models.DateTimeField(verbose_name='创建时间', auto_created=True, default=date.today())

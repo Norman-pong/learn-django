@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.http import JsonResponse, QueryDict
 from django.forms import ModelForm
 from django import forms
-from app02.models import Department, Employee
+from app02.models import Department, Employee, PrettyNum
 
 
 # Create your views here.
@@ -94,3 +94,9 @@ def dept(request):
 
     res_data = {"code": 200, "data": dept_name, "msg": "请求成功"}
     return JsonResponse(res_data)
+
+
+def mobile_list(request):
+    list = PrettyNum.objects.all()
+
+    return render(request, 'mobile/list.html', { 'mobile_list' : list})

@@ -41,6 +41,7 @@ urlpatterns = [
     path('employee/list', app02_views.employee_index),
     path('employee/add', app02_views.employee_add_user_form),
     path('employee/<int:nid>/edit', app02_views.employee_edit_user),
+    path('mobile/list', app02_views.mobile_list),
 
     # api
     path('api/dept', app02_views.dept),
