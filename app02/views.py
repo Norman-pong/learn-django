@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.http import JsonResponse, QueryDict
 from django.forms import ModelForm
 from django import forms
+from django.views import View
 from app02.models import Department, Employee, PrettyNum
 
 
@@ -96,7 +97,34 @@ def dept(request):
     return JsonResponse(res_data)
 
 
-def mobile_list(request):
-    list = PrettyNum.objects.all()
+class PrettyNumForm(ModelForm):
+    # 需要独立编写校验规则
+    mobile = forms.IntegerField(min_value=11,label='手机号码')
+    # password = forms.CharField(min_length=6,label='员工密码')
+    # hiredate_attrs = {'placeholder': "yyyy-MM-dd",'class': 'layui-input','lay-verify':'date','id':'date','autocomplete':'off'}
+    # hiredate = forms.DateTimeField(label='入职时间',widget=forms.TextInput(attrs=hiredate_attrs))
+    class Meta:
+        model = PrettyNum
+        fields = ['mobile', 'price', 'level','status',]
 
-    return render(request, 'mobile/list.html', { 'mobile_list' : list})
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+          # # 通过插件添加 input 属性
+          # if name == 'hiredate':
+          #     continue
+          field.widget.attrs = {"class": 'layui-input', "lay-verify": "required", "placeholder": "请输入{}".format(field.label),'autocomplete':'off'}
+
+class Mobile(View):
+    def get(self, request):
+        list = PrettyNum.objects.all()
+        form = PrettyNumForm()
+        return render(request, 'mobile/list.html', { 'mobile_list' : list, 'form': form})
+
+    def post(self, request):
+        data = json.loads(request.body)
+        PrettyNum.objects.create(**data)
+        return HttpResponse(request)
+
+    def delete(self, request):
+        return HttpResponse(request)

@@ -1,0 +1,23 @@
+  <div class="layui-card-body">
+    <form id="add_mobile"
+          name='addEmployess'
+          class="layui-form layui-form-pane"
+          action=""
+          style="display: none;
+                 padding: 16px">
+
+      {% for item in form %}
+      <div class="layui-form-item">
+        <label class="layui-form-label">{{ item.label }}</label>
+        <div class="layui-input-inline">
+          {{ item }}
+        </div>
+        <div class="layui-form-mid layui-text-em layui-font-red">{{ item.errors.0 }}</div>
+      </div>
+      {% endfor %}
+      <div class="layui-form-item">
+        <button class="layui-btn" lay-submit lay-filter="addMobile">确认</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      </div>
+    </form>
+  </div>

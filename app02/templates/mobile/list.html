@@ -5,6 +5,9 @@
     <h2>靓号管理</h2>
   </div>
   <div class="layui-card-body">
+    <button type="button"
+            class="layui-btn layui-bg-primary"
+            lay-on="addMobile">添加手机号码</button>
     <table class="layui-table" style="text-align: center;">
       <colgroup>
         <col width="80">
@@ -16,6 +19,7 @@
         <tr>
           <th>ID</th>
           <th>手机号码</th>
+          <th>价格</th>
           <th>号码等级</th>
           <th>号码状态</th>
           <th>创建时间</th>
@@ -27,6 +31,7 @@
           <tr>
             <td>{{ item.id }}</td>
             <td>{{ item.mobile }}</td>
+            <td>{{ item.price }}元</td>
             <td>{{ item.get_level_display }}</td>
             <td>{{ item.get_status_display }}</td>
             <td>{{ item.create_date|date:'Y-m-d h:i:s'  }}</td>
@@ -45,7 +50,10 @@
       </tbody>
     </table>
   </div>
+
+  {% include './add_mobile.html' %}
+
 {% endblock %}
 {% block js %}
-  <!-- <script src="{% static 'js/department.js' %}"></script> -->
+  <script src="{% static 'js/prettyNum.js' %}"></script>
 {% endblock %}

@@ -59,4 +59,4 @@ class PrettyNum(models.Model):
         (2, '已使用')
     )
     status = models.SmallIntegerField(verbose_name='手机号使用状态', choices=status_choices, default=1)
-    create_date = models.DateTimeField(verbose_name='创建时间', auto_created=True, default=date.today())
+    create_date = models.DateTimeField(verbose_name='创建时间', auto_created=True, default=timezone.now)
