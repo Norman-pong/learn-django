@@ -100,9 +100,6 @@ def dept(request):
 class PrettyNumForm(ModelForm):
     # 需要独立编写校验规则
     mobile = forms.IntegerField(min_value=11,label='手机号码')
-    # password = forms.CharField(min_length=6,label='员工密码')
-    # hiredate_attrs = {'placeholder': "yyyy-MM-dd",'class': 'layui-input','lay-verify':'date','id':'date','autocomplete':'off'}
-    # hiredate = forms.DateTimeField(label='入职时间',widget=forms.TextInput(attrs=hiredate_attrs))
     class Meta:
         model = PrettyNum
         fields = ['mobile', 'price', 'level','status',]
@@ -115,6 +112,7 @@ class PrettyNumForm(ModelForm):
           #     continue
           field.widget.attrs = {"class": 'layui-input', "lay-verify": "required", "placeholder": "请输入{}".format(field.label),'autocomplete':'off'}
 
+from django.core.serializers import serialize
 class Mobile(View):
     def get(self, request):
         list = PrettyNum.objects.all()
@@ -127,4 +125,28 @@ class Mobile(View):
         return HttpResponse(request)
 
     def delete(self, request):
-        return HttpResponse(request)
+        data = json.loads(request.body)
+        id = data.get('id')
+        row_arr = PrettyNum.objects.filter(id=id)
+        array = serialize("json",row_arr)
+
+        row_arr.delete()
+        return JsonResponse({'data': json.loads(array)})
+
+
+# from django.http import HttpResponse
+
+# class ListView(View):
+
+#    def get(self,request):
+
+#       goods_list = my_table .objects.all()[:10]
+
+#       my_tableli = serializers.serialize("json",goods_list)
+#       #注意要加上："application/json"，否则在浏览器显示不正常
+#       return HttpResponse(my_tableli ,"application/json")
+
+def mobile_form_prompt(request, nid):
+    row_object = PrettyNum.objects.filter(id=nid).first()
+    form = PrettyNumForm(instance=row_object)
+    return render(request, 'common/form_prompt.html', { 'form': form })

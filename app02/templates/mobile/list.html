@@ -7,7 +7,7 @@
   <div class="layui-card-body">
     <button type="button"
             class="layui-btn layui-bg-primary"
-            lay-on="addMobile">添加手机号码</button>
+            lay-on="mobileFunc">添加手机号码</button>
     <table class="layui-table" style="text-align: center;">
       <colgroup>
         <col width="80">
@@ -38,11 +38,13 @@
             <td>
               <button type="button"
                       class="layui-btn layui-bg-blue"
-                      lay-on="updateDept"
+                      lay-on="mobileFunc"
+                      dispatch="update"
                       data-id="{{ item.id }}">修改</button>
               <button type="button"
                       class="layui-btn layui-bg-red"
-                      lay-on="deleteDept"
+                      lay-on="mobileFunc"
+                      dispatch="delete"
                       data-id="{{ item.id }}">删除</button>
             </td>
           </tr>
@@ -50,7 +52,6 @@
       </tbody>
     </table>
   </div>
-
   {% include './add_mobile.html' %}
 
 {% endblock %}

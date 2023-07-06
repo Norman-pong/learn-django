@@ -44,6 +44,7 @@ urlpatterns = [
 
     # class Mobile
     path('mobile/list', app02_views.Mobile.as_view()),
+    path('mobile/<int:nid>', app02_views.mobile_form_prompt),
 
     # api
     path('api/dept', app02_views.dept),
