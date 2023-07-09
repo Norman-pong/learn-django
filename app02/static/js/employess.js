@@ -24,7 +24,7 @@ $(function () {
           }
         });
       },
-      employeeDetail: function (que) {
+      editEmployee: function (que) {
         const { id, name } = que.data()
         layer.open({
           type: 2,
@@ -38,6 +38,21 @@ $(function () {
           }
         });
       },
+      deleteEmployee: function (que) {
+        const { id, name } = que.data()
+        layer.confirm(`是否删除【${name}】`, {
+          btn: ['确定', '取消'] //按钮
+        }, function () {
+          fetch(`/employee/${id}/delete`, {
+            method: 'DELETE',
+            headers: { 'X-CSRFToken': csrftoken },
+          }).then(res => {
+            layer.msg('删除成功', { time: 1500 }, function () {
+              location.reload()
+            })
+          })
+        });
+      }
     })
 
     form.on('submit(addEmployees)', function (data) {

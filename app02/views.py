@@ -80,6 +80,13 @@ def employee_edit_user(request, nid):
         return render(request, 'employees_edit.html', { 'form': form})
 
 
+def employee_delete_user(request, nid):
+    row_object = Employee.objects.filter(id=nid).first()
+    if request.method == 'DELETE' and row_object:
+        row_object.delete()
+        return HttpResponse('删除员工成功')
+
+
 def dept(request):
     nid = request.params.get('id')
     dept_name = request.params.get('deptName')
@@ -134,19 +141,21 @@ class Mobile(View):
         return JsonResponse({'data': json.loads(array)})
 
 
-# from django.http import HttpResponse
-
-# class ListView(View):
-
-#    def get(self,request):
-
-#       goods_list = my_table .objects.all()[:10]
-
-#       my_tableli = serializers.serialize("json",goods_list)
-#       #注意要加上："application/json"，否则在浏览器显示不正常
-#       return HttpResponse(my_tableli ,"application/json")
 
 def mobile_form_prompt(request, nid):
     row_object = PrettyNum.objects.filter(id=nid).first()
     form = PrettyNumForm(instance=row_object)
     return render(request, 'common/form_prompt.html', { 'form': form })
+
+
+def mobile_list(request, nid):
+    if request.method == 'GET':
+      row_object = PrettyNum.objects.filter(id=nid)
+      json_data = serialize("json", row_object)
+      return JsonResponse(json.loads(json_data)[0]['fields'])
+
+    if request.method == 'UPDATE':
+        print(request.method)
+        data = json.loads(request.body)
+        PrettyNum.objects.filter(id=nid).update(**data)
+        return HttpResponse('hi')

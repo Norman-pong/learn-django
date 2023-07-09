@@ -37,13 +37,13 @@
             <td>
               <button type="button"
                       class="layui-btn layui-bg-blue"
-                      lay-on="employeeDetail"
+                      lay-on="editEmployee"
                       data-name="{{ item.name }}"
                       data-id="{{ item.id }}">编辑</button>
               <button type="button"
                       class="layui-btn layui-bg-red"
-                      lay-on="deleteDept"
-                      data-title="{{ item.title }}"
+                      lay-on="deleteEmployee"
+                      data-name="{{ item.name }}"
                       data-id="{{ item.id }}">删除</button>
             </td>
           </tr>

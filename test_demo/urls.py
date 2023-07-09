@@ -36,17 +36,21 @@ urlpatterns = [
     path('user/login', views.user_login),
     path('user/delete', views.user_delete),
 
-    # app02
+
+    ### FBV 模式
     path('dept/list', app02_views.dept_index),
     path('employee/list', app02_views.employee_index),
     path('employee/add', app02_views.employee_add_user_form),
     path('employee/<int:nid>/edit', app02_views.employee_edit_user),
+    path('employee/<int:nid>/delete', app02_views.employee_delete_user),
 
-    # class Mobile
+
+    ### CBV 模式 - mobile
     path('mobile/list', app02_views.Mobile.as_view()),
-    path('mobile/<int:nid>', app02_views.mobile_form_prompt),
+    path('mobile/<int:nid>', app02_views.mobile_list),
+    # path('mobile/<int:nid>', app02_views.mobile_form_prompt),
 
-    # api
+    ### API
     path('api/dept', app02_views.dept),
     path('api/employee/add_user', app02_views.employee_add_user)
 ]
