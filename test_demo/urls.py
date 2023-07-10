@@ -3,9 +3,6 @@ from app02 import views as app02_views
 from app02.models import Department, Employee, PrettyNum
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
-
-
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
@@ -23,15 +20,10 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-
-
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['name', 'age', 'account',
+        fields = ['url', 'name', 'age', 'account',
                   'password', 'hiredate', 'gender', 'depart']
 
 
@@ -40,7 +32,34 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
 
 
-router.register(r'employee/list', EmployeeViewSet)
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ['url', 'title', 'add_date', 'mod_date']
+
+
+class DepartmentViewSet(viewsets.ModelViewSet):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class PrettyNumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrettyNum
+        fields = ['url', 'mobile', 'price', 'level', 'status']
+
+
+class PrettyNumViewSet(viewsets.ModelViewSet):
+    queryset = PrettyNum.objects.all()
+    serializer_class = PrettyNumSerializer
+
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'employee', EmployeeViewSet)
+router.register(r'department', DepartmentViewSet)
+router.register(r'pretty_num', PrettyNumViewSet)
 
 
 urlpatterns = [
