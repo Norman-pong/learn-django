@@ -83,16 +83,23 @@ WSGI_APPLICATION = 'test_demo.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'demo_01',
+#         'USER': 'test',
+#         'PASSWORD': 'test123',
+#         'HOST': '127.0.0.1',
+#         'PORT': 3306
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demo_01',
-        'USER': 'test',
-        'PASSWORD': 'test123',
-        'HOST': '127.0.0.1',
-        'PORT': 3306
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3'
     }
 }
+
 
 
 # Password validation
